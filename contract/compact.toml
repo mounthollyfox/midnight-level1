@@ -1,0 +1,7 @@
+[contract]
+name = "bboard"
+language_version = "0.23"
+
+[networks]
+preview = "https://preview-rpc.midnight.network"
+preprod = "https://preprod-rpc.midnight.network"

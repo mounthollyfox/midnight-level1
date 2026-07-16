@@ -107,6 +107,12 @@ For this custom project structure, deployment requires:
 
 **Note**: This project uses a custom monorepo structure. For easiest deployment, use the official Midnight CLI scaffold with the bboard template.
 
+## Deployment Status
+
+**Contract Address:** `0x5761f6637b2e6dc62e93eb0193656660f86572d2`  
+**Network:** Testnet  
+**Transaction ID:** `0xe09782961eea0897a46414fe896ee97ac7be0a9bdbec3cc209e8693632718631`
+
 
 ## Public State vs Private Witness
 

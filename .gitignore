@@ -3,9 +3,6 @@ node_modules/
 package-lock.json
 yarn.lock
 
-# Compact build artifacts
-contract/managed/
-
 # TypeScript
 *.tsbuildinfo
 

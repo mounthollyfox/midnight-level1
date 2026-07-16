@@ -1,0 +1,14 @@
+{
+  "name": "midnight-voting-api",
+  "version": "1.0.0",
+  "description": "API layer for voting DApp",
+  "main": "src/index.ts",
+  "scripts": {},
+  "dependencies": {
+    "midnight-voting-contract": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}

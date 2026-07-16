@@ -71,6 +71,30 @@ Run the test suite:
 npm test
 ```
 
+### Deployment
+
+Deployment to Preview or Preprod network requires additional setup:
+
+1. **Install Nightforge CLI** (deployment tool):
+```bash
+npx -y nightforge --help
+```
+
+2. **Set up a Midnight wallet** and fund it with tDUST from the faucet:
+   - Preview faucet: https://faucet.testnet-02.midnight.network/
+   - Preprod faucet: https://faucet.testnet-02.midnight.network/
+
+3. **Deploy the contract** using Nightforge:
+```bash
+npx -y nightforge deploy bboard --network preview --auto
+```
+
+The `--auto` flag will handle wallet creation, funding, DUST conversion, and deployment automatically.
+
+4. **Save the contract address** displayed after successful deployment for submission.
+
+**Note**: Deployment requires Docker for the proof server and a funded wallet with tDUST.
+
 
 ## Public State vs Private Witness
 

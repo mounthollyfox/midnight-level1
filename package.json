@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Midnight Level 1 - Bboard Contract",
   "private": true,
+  "type": "module",
   "workspaces": [
     "contract",
     "api",
@@ -13,11 +14,19 @@
     "compile": "cd contract && compact compile src/voting.compact managed",
     "test": "cd contract && ts-node src/test/voting.test.ts"
   },
-  "keywords": ["midnight", "compact", "zero-knowledge", "bboard"],
+  "keywords": [
+    "midnight",
+    "compact",
+    "zero-knowledge",
+    "bboard"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "typescript": "^5.0.0",
-    "ts-node": "^10.9.0"
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@midnight-ntwrk/midnight-js-contracts": "^4.1.1"
   }
 }

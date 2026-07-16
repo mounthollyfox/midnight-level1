@@ -73,27 +73,39 @@ npm test
 
 ### Deployment
 
-Deployment to Preview or Preprod network requires additional setup:
+Deployment to Preview or Preprod network requires the official Midnight CLI tools:
 
-1. **Install Nightforge CLI** (deployment tool):
+**Recommended Approach - Use Midnight CLI Scaffold:**
+
+The official Midnight CLI provides the easiest deployment path:
+
 ```bash
-npx -y nightforge --help
+# Install Midnight CLI
+npm install -g @midnight-ntwrk/cli
+
+# Scaffold a new project with bboard template
+midnight init my-bboard --template bboard
+
+# Deploy to preview
+cd my-bboard
+npm run setup -- --network preview
 ```
 
-2. **Set up a Midnight wallet** and fund it with tDUST from the faucet:
-   - Preview faucet: https://faucet.testnet-02.midnight.network/
-   - Preprod faucet: https://faucet.testnet-02.midnight.network/
+This automatically handles:
+- Wallet creation and funding
+- Proof server setup (via Docker)
+- Contract compilation and deployment
+- Contract address display
 
-3. **Deploy the contract** using Nightforge:
-```bash
-npx -y nightforge deploy bboard --network preview --auto
-```
+**Alternative - Manual Deployment:**
 
-The `--auto` flag will handle wallet creation, funding, DUST conversion, and deployment automatically.
+For this custom project structure, deployment requires:
+1. Set up a Midnight wallet (Lace or CLI)
+2. Fund wallet with tDUST from faucet: https://faucet.testnet-02.midnight.network/
+3. Run proof server via Docker
+4. Use Midnight SDK for deployment
 
-4. **Save the contract address** displayed after successful deployment for submission.
-
-**Note**: Deployment requires Docker for the proof server and a funded wallet with tDUST.
+**Note**: This project uses a custom monorepo structure. For easiest deployment, use the official Midnight CLI scaffold with the bboard template.
 
 
 ## Public State vs Private Witness

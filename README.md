@@ -109,9 +109,11 @@ For this custom project structure, deployment requires:
 
 ## Deployment Status
 
-**Contract Address:** `0x5761f6637b2e6dc62e93eb0193656660f86572d2`  
-**Network:** Testnet  
+**Level 1 Contract (Testnet):** `0x5761f6637b2e6dc62e93eb0193656660f86572d2`  
 **Transaction ID:** `0xe09782961eea0897a46414fe896ee97ac7be0a9bdbec3cc209e8693632718631`
+
+**Level 2 Contract (Preprod):** `0x4f8bfca74ee0d71477e7f647a119529f925944fb`  
+**Transaction ID:** `0x3384485cc1f13605f1524005c2f15e33b52e807d4ba1a1d197d9503fc2130d66`
 
 
 ## Public State vs Private Witness

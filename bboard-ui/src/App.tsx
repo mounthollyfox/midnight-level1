@@ -3,6 +3,7 @@ import { MessageSquare, Send, Trash2, Lock, Wallet, LogOut } from 'lucide-react'
 import { Button } from './components/ui/button'
 import { Input } from './components/ui/input'
 import { Card, CardHeader, CardTitle, CardContent } from './components/ui/card'
+import { ContractService } from './contractService'
 import './index.css'
 
 interface Post {
@@ -20,6 +21,8 @@ function App() {
   const [walletAddress, setWalletAddress] = useState('')
   const [isConnected, setIsConnected] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [contractService, setContractService] = useState<ContractService | null>(null)
+  const [contractState, setContractState] = useState<any>(null)
 
   useEffect(() => {
     // Check if wallet is already connected on mount
@@ -75,15 +78,37 @@ function App() {
     }
   }
 
-  const handleDeploy = () => {
-    const simulatedAddress = '0x' + Array.from({ length: 40 }, () =>
-      Math.floor(Math.random() * 16).toString(16)
-    ).join('')
-    setContractAddress(simulatedAddress)
-    setPosts([])
+  const handleDeploy = async () => {
+    try {
+      setIsLoading(true)
+      // For now, use a simulated address - in production this would deploy to Preprod
+      const simulatedAddress = '0x' + Array.from({ length: 40 }, () =>
+        Math.floor(Math.random() * 16).toString(16)
+      ).join('')
+      setContractAddress(simulatedAddress)
+      
+      // Initialize contract service
+      const service = new ContractService({
+        contractAddress: simulatedAddress,
+        network: 'preprod'
+      })
+      await service.initialize()
+      setContractService(service)
+      
+      // Get initial contract state
+      const state = await service.getContractState()
+      setContractState(state)
+      
+      setPosts([])
+    } catch (error) {
+      console.error('Error deploying contract:', error)
+      alert('Failed to deploy contract')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
-  const handlePost = () => {
+  const handlePost = async () => {
     if (!newMessage.trim()) {
       alert('Please enter a message')
       return
@@ -96,25 +121,45 @@ function App() {
       alert('Local secret key must be 64 hex characters')
       return
     }
-
-    // Simulate posting
-    const newPost: Post = {
-      id: posts.length,
-      content: newMessage,
-      owner: localSecretKey.slice(0, 8) + '...' + localSecretKey.slice(-6),
-      sequence: 1,
+    if (!contractService) {
+      alert('Please deploy a contract first')
+      return
     }
-    setPosts([...posts, newPost])
-    setNewMessage('')
+
+    try {
+      setIsLoading(true)
+      const txId = await contractService.postMessage(localSecretKey, newMessage)
+      
+      // Simulate posting with the circuit result
+      const newPost: Post = {
+        id: posts.length,
+        content: newMessage,
+        owner: localSecretKey.slice(0, 8) + '...' + localSecretKey.slice(-6),
+        sequence: contractState?.sequence || 1,
+      }
+      setPosts([...posts, newPost])
+      setNewMessage('')
+      
+      alert(`Message posted successfully! Transaction ID: ${txId}`)
+    } catch (error) {
+      console.error('Error posting message:', error)
+      alert('Failed to post message')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
-  const handleTakeDown = (postId: number) => {
+  const handleTakeDown = async (postId: number) => {
     if (!localSecretKey) {
       alert('Please enter your local secret key')
       return
     }
     if (localSecretKey.length !== 64) {
       alert('Local secret key must be 64 hex characters')
+      return
+    }
+    if (!contractService) {
+      alert('Please deploy a contract first')
       return
     }
 
@@ -127,7 +172,18 @@ function App() {
       return
     }
 
-    setPosts(posts.filter(p => p.id !== postId))
+    try {
+      setIsLoading(true)
+      const txId = await contractService.takeDownMessage(localSecretKey)
+      
+      setPosts(posts.filter(p => p.id !== postId))
+      alert(`Message taken down successfully! Transaction ID: ${txId}`)
+    } catch (error) {
+      console.error('Error taking down message:', error)
+      alert('Failed to take down message')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (

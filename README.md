@@ -130,3 +130,41 @@ In Compact, circuit inputs are **private by default**. This is a fundamental pri
 The `disclose()` function does not make a value public—it merely tells the compiler that the developer considers it safe to expose. The actual exposure happens only when the data is written to public state.
 
 This architecture ensures privacy is woven in from Level 1, with developers explicitly choosing what becomes public rather than having to explicitly protect what should remain private.
+
+## Privacy Claim
+
+This BBoard contract demonstrates observable privacy behavior through zero-knowledge proofs:
+
+**What is Proven Without Being Shown:**
+
+1. **Message Ownership**: The `post` circuit proves that the caller possesses the correct local secret key without revealing the key itself. The contract only stores a derived public key on-chain, not the secret witness.
+
+2. **Authorization Verification**: The `takeDown` circuit proves that the caller is the legitimate owner of a message without revealing their secret key. The circuit verifies ownership through cryptographic comparison while keeping the witness private.
+
+3. **Identity Protection**: Users can post and remove messages with cryptographic proof of ownership, but their actual identity (local secret key) remains private. Only the derived public key is visible on-chain.
+
+**Privacy Guarantees:**
+- The local secret key never leaves the user's device
+- Zero-knowledge proofs prove ownership without revealing the secret
+- Only cryptographic derivatives (public keys) are stored on-chain
+- The contract state reveals message content but not the poster's identity
+
+This demonstrates the core privacy principle of Compact: sensitive data (witnesses) can be used to prove statements about public data without ever being revealed to the network.
+
+## Level 2 Frontend Integration
+
+The project includes a React frontend with Lace wallet integration:
+
+- **Wallet Connection**: Connect/disconnect Lace wallet with address display
+- **Circuit Calls**: Call `post` and `takeDown` circuits from the frontend
+- **Local Private State**: Manage local secret keys for circuit witnesses
+- **Contract Deployment**: Deploy contracts to Preprod network
+
+**Frontend Features:**
+- React + TypeScript with Vite
+- Lace wallet integration
+- Midnight.js SDK integration
+- Tailwind CSS styling
+- Responsive design
+
+**Live Demo:** The frontend can be accessed by running `npm run dev` in the `bboard-ui` directory.

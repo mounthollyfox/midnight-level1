@@ -100,7 +100,7 @@ export class Contract {
         if (!(typeof(contextOrig_0) === 'object' && contextOrig_0.currentQueryContext != undefined)) {
           __compactRuntime.typeError('post',
                                      'argument 1 (as invoked from Typescript)',
-                                     'voting.compact line 26 char 1',
+                                     'bboard.compact line 26 char 1',
                                      'CircuitContext',
                                      contextOrig_0)
         }
@@ -126,7 +126,7 @@ export class Contract {
         if (!(typeof(contextOrig_0) === 'object' && contextOrig_0.currentQueryContext != undefined)) {
           __compactRuntime.typeError('takeDown',
                                      'argument 1 (as invoked from Typescript)',
-                                     'voting.compact line 33 char 1',
+                                     'bboard.compact line 33 char 1',
                                      'CircuitContext',
                                      contextOrig_0)
         }
@@ -284,7 +284,7 @@ export class Contract {
     if (!(result_0.buffer instanceof ArrayBuffer && result_0.BYTES_PER_ELEMENT === 1 && result_0.length === 32)) {
       __compactRuntime.typeError('localSecretKey',
                                  'return value',
-                                 'voting.compact line 24 char 1',
+                                 'bboard.compact line 24 char 1',
                                  'Bytes<32>',
                                  result_0)
     }
@@ -325,7 +325,7 @@ export class Contract {
                                                                                                                                                                alignment: _descriptor_11.alignment() } }] } },
                                                                                                                                     { popeq: { cached: true,
                                                                                                                                                result: undefined } }]).value),
-                                                                         'voting.compact line 28 char 48'));
+                                                                         'bboard.compact line 28 char 48'));
     __compactRuntime.queryLedgerState(context,
                                       partialProofData,
                                       [
@@ -402,7 +402,7 @@ export class Contract {
                                                                                                                                                                                        alignment: _descriptor_11.alignment() } }] } },
                                                                                                                                                             { popeq: { cached: true,
                                                                                                                                                                        result: undefined } }]).value),
-                                                                                                 'voting.compact line 35 char 47'))),
+                                                                                                 'bboard.compact line 35 char 47'))),
                             'Attempted to take down post, but not the current owner');
     const formerMsg_0 = _descriptor_5.fromValue(__compactRuntime.queryLedgerState(context,
                                                                                   partialProofData,
@@ -551,14 +551,14 @@ export const pureCircuits = {
     if (!(sk_0.buffer instanceof ArrayBuffer && sk_0.BYTES_PER_ELEMENT === 1 && sk_0.length === 32)) {
       __compactRuntime.typeError('publicKey',
                                  'argument 1',
-                                 'voting.compact line 43 char 1',
+                                 'bboard.compact line 43 char 1',
                                  'Bytes<32>',
                                  sk_0)
     }
     if (!(sequence_0.buffer instanceof ArrayBuffer && sequence_0.BYTES_PER_ELEMENT === 1 && sequence_0.length === 32)) {
       __compactRuntime.typeError('publicKey',
                                  'argument 2',
-                                 'voting.compact line 43 char 1',
+                                 'bboard.compact line 43 char 1',
                                  'Bytes<32>',
                                  sequence_0)
     }
